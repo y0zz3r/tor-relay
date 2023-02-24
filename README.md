@@ -1,6 +1,8 @@
 # tor-relay
 
-This is a Bash script that automates the process of setting up a Tor relay on a Debian 11 server, while also changing the SSH port to a random value between 1024 and 65535. Here's a breakdown of what the script does:
+This is a Bash script that automates the process of setting up a Tor relay on a Debian 11 server, while also changing the SSH port to a random value between 1024 and 65535.
+
+Here's a breakdown of what the script does:
 
 1. The script prompts the user to enter a nickname for the Tor relay.
 
