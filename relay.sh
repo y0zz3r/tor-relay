@@ -1,25 +1,36 @@
 #!/bin/bash
 
-# Update the package list and upgrade installed packages
-sudo apt update
-sudo apt upgrade -y
+# Prompt user for nickname for the Tor relay
+read -p "Enter a nickname for the Tor relay: " RELAY_NICKNAME
 
-# Install Tor
-sudo apt install tor -y
+# Update packages and install required packages
+sudo apt-get update
+sudo apt-get install -y apt-transport-https gnupg curl ufw
 
-# Backup the original Tor configuration file
-sudo cp /etc/tor/torrc /etc/tor/torrc.bak
+# Configure the firewall
+sudo ufw default deny incoming
+sudo ufw default allow outgoing
+sudo ufw allow ssh
+sudo ufw allow 9001/tcp
+sudo ufw enable
 
-# Configure the Tor relay settings
-echo "ORPort 9001" | sudo tee -a /etc/tor/torrc
-echo "Nickname <your_relay_nickname>" | sudo tee -a /etc/tor/torrc
-echo "ContactInfo <your_email_address>" | sudo tee -a /etc/tor/torrc
-echo "ExitPolicy reject *:*" | sudo tee -a /etc/tor/torrc
-echo "Log notice file /var/log/tor/notices.log" | sudo tee -a /etc/tor/torrc
-echo "RelayBandwidthRate 1000 KBytes" | sudo tee -a /etc/tor/torrc
-echo "RelayBandwidthBurst 2000 KBytes" | sudo tee -a /etc/tor/torrc
-echo "AccountingMax 50 GBytes" | sudo tee -a /etc/tor/torrc
-echo "AccountingStart month 3 15:00" | sudo tee -a /etc/tor/torrc
+# Add Tor Project signing key and repository
+curl https://deb.torproject.org/key.asc | sudo gpg --import -
+echo "deb https://deb.torproject.org/torproject.org $(lsb_release -cs) main" | sudo tee -a /etc/apt/sources.list.d/tor.list
+echo "deb-src https://deb.torproject.org/torproject.org $(lsb_release -cs) main" | sudo tee -a /etc/apt/sources.list.d/tor.list
+
+# Update packages and install Tor
+sudo apt-get update
+sudo apt-get install -y tor
+
+# Configure Tor relay settings
+sudo sed -i "s/#Nickname\ \".*\"/Nickname $RELAY_NICKNAME/" /etc/tor/torrc
+sudo sed -i "s/#ORPort\ \d+/ORPort 9001/" /etc/tor/torrc
+sudo sed -i "s/#ExitPolicy\ accept\ \*\:\*/ExitPolicy reject \*:\*/" /etc/tor/torrc
 
 # Restart Tor
 sudo systemctl restart tor
+
+# Display the Tor relay fingerprint and bandwidth information
+echo "Tor Relay Fingerprint: $(sudo cat /var/lib/tor/$RELAY_NICKNAME/fingerprint)"
+echo "Tor Relay Bandwidth: $(sudo cat /var/lib/tor/$RELAY_NICKNAME/bandwidth)"
