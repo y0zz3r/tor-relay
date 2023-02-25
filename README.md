@@ -56,17 +56,13 @@ Notes
     
 *   To stop the Tor relay, run the following command:
     
-    vbnet
-    
     ```
     sudo systemctl stop tor
     ```
     
 *   To start the Tor relay, run the following command:
     
-    sql
-    
-    ```sql
+    ```
     sudo systemctl start tor
     ```
     
