@@ -48,9 +48,7 @@ Notes
     
 *   If you want to view the Tor relay logs, run the following command:
     
-    bash
-    
-    ```bash
+    ```
     sudo tail -f /var/log/tor/log
     ```
     
