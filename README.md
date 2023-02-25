@@ -1,65 +1,51 @@
-Tor Relay Setup Script
+Setting up a Tor Relay on Ubuntu
 ======================
 
-This script sets up a Tor relay on a Debian-based system. It prompts the user for a nickname for the Tor relay, installs required packages, configures the firewall, adds the Tor Project signing key and repository, installs Tor, and sets up the Tor relay settings.
+This script automates the process of setting up a Tor relay on Ubuntu. It configures the firewall, adds the Tor Project signing key and repository, installs Tor, and configures the Tor relay settings.
 
 Prerequisites
 -------------
 
-*   A Debian-based system (tested on Debian 11)
-*   sudo privileges
+*   Ubuntu operating system
+*   Root privileges
 
-Instructions
+Installation
 ------------
 
-1.  Clone this repository or copy the script to your local machine.
-    
-2.  Open a terminal window and navigate to the directory containing the script.
-    
-3.  Make the script executable with the following command:
+1.  Clone this repository:
     
     ```
-    chmod +x tor-relay-setup.sh
+    git clone https://github.com/y0zz3r/tor-relay.git
     ```
     
-4.  Run the script with the following command:
+2.  Change into the cloned directory:
+    
+    ```
+    cd tor-relay-setup
+    ```
+    
+3.  Run the script:
+    
+    ```
+    sudo ./setup-tor-relay.sh
+    ```
+    
+4.  Follow the prompts to configure the Tor relay settings.
 
-    
-    ```
-    ./tor-relay-setup.sh
-    ```
-    
-5.  When prompted, enter a nickname for your Tor relay.
-    
-6.  Follow the prompts to install and configure Tor.
-    
-7.  Once the script has completed, the Tor relay fingerprint and bandwidth information will be displayed.
-    
 
-Notes
+Configuration
 -----
 
-*   This script assumes that you want to use port 9001 for your Tor relay. If you want to use a different port, modify the `ORPort` setting in the script before running it.
-    
-*   By default, this script configures the Tor relay to reject all exit traffic. If you want to allow certain exit traffic, modify the `ExitPolicy` setting in the script before running it.
-    
-*   If you want to view the Tor relay logs, run the following command:
-    
-    ```
-    sudo tail -f /var/log/tor/log
-    ```
-    
-*   To stop the Tor relay, run the following command:
-    
-    ```
-    sudo systemctl stop tor
-    ```
-    
-*   To start the Tor relay, run the following command:
-    
-    ```
-    sudo systemctl start tor
-    ```
+*   The script will prompt you for a nickname for the Tor relay. This name must be unique and not already in use by another Tor relay.
     
 
--------
+Verification
+-----
+
+*   The script will display the Tor relay fingerprint and bandwidth information once the Tor relay is set up. You can also verify that your relay is running by visiting the Tor Metrics website.
+
+
+Disclaimer
+-----
+
+*   This script is provided "as is" without warranty of any kind, express or implied. The author shall not be liable for any damages arising from the use of this script.
