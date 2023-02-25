@@ -18,17 +18,14 @@ Instructions
     
 3.  Make the script executable with the following command:
     
-    bash
-    
-    ```bash
+    ```
     chmod +x tor-relay-setup.sh
     ```
     
 4.  Run the script with the following command:
+
     
-    bash
-    
-    ```bash
+    ```
     ./tor-relay-setup.sh
     ```
     
