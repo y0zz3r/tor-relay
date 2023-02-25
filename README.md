@@ -6,7 +6,7 @@ This script sets up a Tor relay on a Debian-based system. It prompts the user fo
 Prerequisites
 -------------
 
-*   A Debian-based system (tested on Ubuntu 18.04 and 20.04)
+*   A Debian-based system (tested on Debian 11)
 *   sudo privileges
 
 Instructions
