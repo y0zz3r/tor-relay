@@ -65,9 +65,4 @@ Notes
     ```
     
 
-License
 -------
-
-This script is licensed under the [MIT License](https://github.com/username/repo/blob/master/LICENSE).
-
----
